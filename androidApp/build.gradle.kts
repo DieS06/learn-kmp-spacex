@@ -21,7 +21,10 @@ kotlin {
 
         //Koin
         implementation(project.dependencies.platform(libs.koin.bom))
+        // Koin
         implementation(libs.koin.android)
+        // Coroutine
+        implementation(libs.kotlinx.coroutines.android)
     }
 }
 

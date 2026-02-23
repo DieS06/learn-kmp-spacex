@@ -36,8 +36,6 @@ kotlin {
         }
     }
 
-    jvm()
-
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     dependencies {
         implementation(projects.shared)
@@ -53,6 +51,12 @@ kotlin {
         implementation(libs.kotlinx.datetime)
 
         testImplementation(libs.kotlin.test)
+
+        //Koin
+        implementation(project.dependencies.platform(libs.koin.bom))
+        implementation(libs.koin.compose)
+        implementation(libs.koin.compose.viewmodel)
+        implementation(libs.koin.compose.viewmodel.navigation)
     }
 
     sourceSets {

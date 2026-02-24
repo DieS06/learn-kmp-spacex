@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.androidLint)
+    alias(libs.plugins.sqlDelight)
 }
 
 kotlin {
@@ -11,7 +12,7 @@ kotlin {
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
         namespace = "compose.project.demo.composedemo.shared"
-        compileSdk {
+        compileSdk { 
             version = release(36) { minorApiLevel = 1 }
         }
         minSdk = 24
@@ -33,7 +34,6 @@ kotlin {
     // A step-by-step guide on how to include this library in an XCode
     // project can be found here:
     // https://developer.android.com/kotlin/multiplatform/migrate
-    jvm()
     val xcfName = "sharedKit"
 
     iosX64 {
@@ -97,6 +97,8 @@ kotlin {
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
                 implementation(libs.ktor.client.okhttp)
+                // SQLDelight
+                implementation(libs.sqldelight.driver.android)
             }
         }
 
@@ -116,8 +118,18 @@ kotlin {
                 // on common by default and will correctly pull the iOS artifacts of any
                 // KMP dependencies declared in commonMain.
                 implementation(libs.ktor.client.darwin)
+                // SQLDelight
+                implementation(libs.sqldelight.driver.native)
             }
         }
     }
+}
 
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName.set("compose.project.demo.composedemo.data.local")
+        }
+    }
+    linkSqlite = true
 }

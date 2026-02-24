@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flowOn
 class RemoteRocketLaunchesDataSource(
     private val httpClient: HttpClient,
     private val ioDispatcher: CoroutineDispatcher,
-) : iRemoteRocketLaunchesDataSource {
+) : IRemoteRocketLaunchesDataSource {
     override fun latestLaunches(): Flow<List<RocketLaunch>> =
         flow {
             val latestLaunches =
